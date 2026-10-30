@@ -1,0 +1,9 @@
+# E5 — Router + stages as triggered (adaptive). E5-T1000 / E5-T4000 override T.
+mode: router
+T: 2000
+budget: 2500
+injection_mode: auto
+injection_threshold: 0.9   # chosen on DEV only: same dev recall as 0.5, fewer dev false positives (bench/BENCH.md)
+rule_action: excise
+injection_model: small   # passes the 300 ms gate on this machine (fp32); base does not — see bench/BENCH.md
+scan_scope: outbound      # production: B -> A on outbound untrusted chunks (+ tool-name mentions)

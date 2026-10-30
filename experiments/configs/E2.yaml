@@ -1,0 +1,4 @@
+# E2 — B + C (privacy addition)
+mode: fixed
+stages: [B, C]
+budget: 2500

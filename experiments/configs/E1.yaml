@@ -1,0 +1,4 @@
+# E1 — B only (relevance selection)
+mode: fixed
+stages: [B]
+budget: 2500

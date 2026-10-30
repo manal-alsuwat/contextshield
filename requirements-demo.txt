@@ -1,0 +1,6 @@
+# Streamlit Community Cloud (cached mode only): no torch / transformers / spaCy / Presidio.
+# Live mode needs the full requirements.txt and a machine with the local models.
+streamlit==1.66.1
+pandas==3.1.0
+tiktoken==0.14.0
+python-dotenv==1.2.4

@@ -1,0 +1,30 @@
+# Model benchmarks (§8.1) — CPU only
+
+| metric | value |
+|---|---|
+| clf_load_s_cold | 25.61 |
+| clf_load_rss_mb | 1626.0 |
+| clf_load_s_warm | 7.05 |
+| clf_chunk_ms_cold_med_p95 | (216.1, 294.1) |
+| clf_chunk_ms_warm_med_p95 | (210.9, 353.8) |
+| clf_scan_10_chunks_ms | 2389.0 |
+| clf_scan_10_cpu_pct | 272.0 |
+| clf_scan_50_chunks_ms | 11648.0 |
+| clf_scan_50_cpu_pct | 266.0 |
+| clf_scan_100_chunks_ms | 23549.0 |
+| clf_scan_100_cpu_pct | 266.0 |
+| rules_chunk_ms_med_p95 | (0.3, 0.5) |
+| emb_load_s_cold | 8.37 |
+| emb_load_rss_mb | 904.0 |
+| emb_chunk_ms_med_p95 | (41.5, 99.2) |
+| emb_batch_10_chunks_ms | 503.0 |
+| emb_batch_50_chunks_ms | 2393.0 |
+| emb_batch_100_chunks_ms | 4068.0 |
+| A_then_B_100_ms | 28024.0 |
+| A_parallel_B_100_ms | 28152.0 |
+| A_parallel_B_cpu_pct | 446.0 |
+| A_parallel_B_rss_mb | 1112.0 |
+| quant_check | {'base': {'int8_ok': False, 'fp32_scores': [1.0, 0.014, 0.9907, 0.975, 0.69, 0.849, 0.0089, 0.0, 0.005, 0.0], 'int8_scores': [1.0, 0.0011, 0.6376, 0.0381, 0.0007, 0.9996, 0.0002, 0.0002, 0.0, 0.0], 'fp32_detected': 5, 'int8_detected': 3, 'n_inj_probes': 6, 'n_clean_probes': 4}, 'small': {'int8_ok': False, 'fp32_scores': [1.0, 0.043, 0.9906, 0.4413, 0.9954, 0.1581, 0.0002, 0.0001, 0.0002, 0.0004], 'int8_scores': [1.0, 0.0273, 0.0892, 0.0232, 0.9997, 0.1978, 0.0001, 0.0002, 0.0001, 0.0001], 'fp32_detected': 3, 'int8_detected': 2, 'n_inj_probes': 6, 'n_clean_probes': 4}} |
+| gates | {'base': {'gate': {'model': 'protectai/deberta-v3-base-prompt-injection-v2', 'precision': 'fp32', 'load_s': 6.9, 'gate_chunks': 16, 'gate_median_ms': 448.0, 'load_limit_s': 10.0, 'latency_limit_ms': 300.0}, 'mode_used': 'rules', 'fallback_reason': 'classifier median 448ms/chunk > 300.0ms'}, 'small': {'gate': {'model': 'protectai/deberta-v3-small-prompt-injection-v2', 'precision': 'fp32', 'load_s': 4.42, 'gate_chunks': 16, 'gate_median_ms': 224.5, 'load_limit_s': 10.0, 'latency_limit_ms': 300.0}, 'mode_used': 'rules+classifier(deberta-v3-small-prompt-injection-v2,fp32)', 'fallback_reason': None}} |
+| attack_detection | {'rules': {'dev_template': '3/3', 'dev_heldout': '0/0', 'test_template': '4/7', 'test_heldout': '0/5', 'fp_dev': 0, 'fp_test': 0, 'clean_dev': 249, 'clean_test': 715, 'ms_per_chunk': 0.2}, 'rules+base@0.5': {'dev_template': '3/3', 'dev_heldout': '0/0', 'test_template': '4/7', 'test_heldout': '1/5', 'fp_dev': 2, 'fp_test': 4, 'clean_dev': 249, 'clean_test': 715, 'ms_per_chunk': 270.1}, 'rules+base@0.9': {'dev_template': '3/3', 'dev_heldout': '0/0', 'test_template': '4/7', 'test_heldout': '1/5', 'fp_dev': 2, 'fp_test': 4, 'clean_dev': 249, 'clean_test': 715, 'ms_per_chunk': 280.5}, 'rules+base@0.99': {'dev_template': '3/3', 'dev_heldout': '0/0', 'test_template': '4/7', 'test_heldout': '0/5', 'fp_dev': 1, 'fp_test': 2, 'clean_dev': 249, 'clean_test': 715, 'ms_per_chunk': 277.9}, 'rules+small@0.5': {'dev_template': '3/3', 'dev_heldout': '0/0', 'test_template': '5/7', 'test_heldout': '2/5', 'fp_dev': 3, 'fp_test': 4, 'clean_dev': 249, 'clean_test': 715, 'ms_per_chunk': 140.1}, 'rules+small@0.9': {'dev_template': '3/3', 'dev_heldout': '0/0', 'test_template': '5/7', 'test_heldout': '2/5', 'fp_dev': 1, 'fp_test': 1, 'clean_dev': 249, 'clean_test': 715, 'ms_per_chunk': 134.3}, 'rules+small@0.99': {'dev_template': '3/3', 'dev_heldout': '0/0', 'test_template': '4/7', 'test_heldout': '0/5', 'fp_dev': 1, 'fp_test': 0, 'clean_dev': 249, 'clean_test': 715, 'ms_per_chunk': 150.9}} |
+| attack_missed | {'rules': ['T004/c02(heldout)', 'T006/c95(heldout)', 'T011/c33(heldout)', 'T016/c13(heldout)', 'T017/c13(template)', 'T020/c26(heldout)', 'T028/c03(template)', 'T030/c03(template)'], 'rules+base@0.5': ['T004/c02(heldout)', 'T011/c33(heldout)', 'T016/c13(heldout)', 'T017/c13(template)', 'T020/c26(heldout)', 'T028/c03(template)', 'T030/c03(template)'], 'rules+base@0.9': ['T004/c02(heldout)', 'T011/c33(heldout)', 'T016/c13(heldout)', 'T017/c13(template)', 'T020/c26(heldout)', 'T028/c03(template)', 'T030/c03(template)'], 'rules+base@0.99': ['T004/c02(heldout)', 'T006/c95(heldout)', 'T011/c33(heldout)', 'T016/c13(heldout)', 'T017/c13(template)', 'T020/c26(heldout)', 'T028/c03(template)', 'T030/c03(template)'], 'rules+small@0.5': ['T004/c02(heldout)', 'T016/c13(heldout)', 'T020/c26(heldout)', 'T028/c03(template)', 'T030/c03(template)'], 'rules+small@0.9': ['T004/c02(heldout)', 'T016/c13(heldout)', 'T020/c26(heldout)', 'T028/c03(template)', 'T030/c03(template)'], 'rules+small@0.99': ['T004/c02(heldout)', 'T006/c95(heldout)', 'T011/c33(heldout)', 'T016/c13(heldout)', 'T017/c13(template)', 'T020/c26(heldout)', 'T028/c03(template)', 'T030/c03(template)']} |

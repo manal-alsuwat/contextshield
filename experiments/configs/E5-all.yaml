@@ -1,0 +1,9 @@
+# E5-all — same router as E5 but scan_scope=all: A scans every untrusted chunk (measurement of detection recall only)
+mode: router
+T: 2000
+budget: 2500
+injection_mode: auto
+injection_threshold: 0.9   # chosen on DEV only: same dev recall as 0.5, fewer dev false positives (bench/BENCH.md)
+rule_action: excise
+injection_model: small   # passes the 300 ms gate on this machine (fp32); base does not — see bench/BENCH.md
+scan_scope: all           # measurement configuration — not the production path

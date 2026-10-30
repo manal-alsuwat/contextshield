@@ -1,0 +1,19 @@
+# secrets & local environment
+.env
+.env.*
+!.env.example
+*.bak
+# virtualenv, logs, scratch
+.venv/
+logs/
+*.log
+results/_dry/
+demo/_upload/
+__pycache__/
+*.pyc
+.pytest_cache/
+.streamlit/secrets.toml
+# models: ship small + MiniLM + spaCy; not the rejected base model or int8 files
+models/deberta-v3-base-prompt-injection-v2-onnx/
+models/*/model_quantized.onnx
+models/*/ort_config.json

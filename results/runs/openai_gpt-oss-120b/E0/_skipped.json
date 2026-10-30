@@ -1,0 +1,26 @@
+[
+ {
+  "task_id": "T006",
+  "reason": "estimated 17451 tokens > provider cap 8000 TPM"
+ },
+ {
+  "task_id": "T009",
+  "reason": "estimated 17586 tokens > provider cap 8000 TPM"
+ },
+ {
+  "task_id": "T015",
+  "reason": "estimated 18029 tokens > provider cap 8000 TPM"
+ },
+ {
+  "task_id": "T018",
+  "reason": "estimated 16623 tokens > provider cap 8000 TPM"
+ },
+ {
+  "task_id": "T021",
+  "reason": "estimated 16701 tokens > provider cap 8000 TPM"
+ },
+ {
+  "task_id": "T024",
+  "reason": "estimated 17482 tokens > provider cap 8000 TPM"
+ }
+]

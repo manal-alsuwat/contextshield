@@ -1,0 +1,51 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Generate dataset",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/data/gen_dataset.py",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Run E5 (dev)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/experiments/run_experiment.py",
+      "args": ["--exp", "E5", "--split", "dev"],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Run E5 (dev, dry-run — no API)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/experiments/run_experiment.py",
+      "args": ["--exp", "E5", "--split", "dev", "--dry-run", "--force"],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "make all",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/make.py",
+      "args": ["all"],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Summary + report",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/results/summary.py",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Streamlit demo",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "streamlit",
+      "args": ["run", "${workspaceFolder}/demo/app.py"],
+      "console": "integratedTerminal"
+    }
+  ]
+}

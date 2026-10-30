@@ -1,0 +1,32 @@
+# Pinned on the hackathon machine (Python 3.12, Windows, CPU). Install torch CPU wheels with:
+#   pip install --index-url https://download.pytorch.org/whl/cpu torch==<version below>
+# then: pip install -r requirements.txt && python -m spacy download en_core_web_sm
+PyYAML==6.0.3
+httpx==0.28.1
+matplotlib==3.11.2
+numpy==2.4.6
+onnx==1.23.2
+onnxruntime==1.31.1
+openai==3.41.0
+optimum-onnx==0.1.0
+optimum==2.1.0
+pandas==3.1.0
+phonenumbers==9.0.42
+protobuf==7.36.2
+psutil==7.2.2
+pytest==9.2.0
+python-dotenv==1.2.4
+safetensors==0.8.0
+scikit-learn==1.9.1
+scipy==1.18.1
+sentence-transformers==5.7.0
+sentencepiece==0.2.2
+spacy==3.8.18
+streamlit==1.66.1
+tiktoken==0.14.0
+tokenizers==0.22.2
+torch==2.15.0
+transformers==4.57.6
+huggingface_hub==0.36.2
+presidio-analyzer==2.2.366
+presidio-anonymizer==2.2.366

@@ -1,0 +1,9 @@
+# E4 — B + A + C + D (all stages always on)
+mode: fixed
+stages: [A, B, C, D]
+budget: 2500
+injection_mode: auto
+injection_threshold: 0.9   # chosen on DEV only: same dev recall as 0.5, fewer dev false positives (bench/BENCH.md)
+rule_action: excise
+injection_model: small   # passes the 300 ms gate on this machine (fp32); base does not — see bench/BENCH.md
+scan_scope: all           # measurement: A on every untrusted chunk (always-on configuration)

@@ -19,6 +19,18 @@ streamlit run demo/app.py     # cached mode works with no .env; add .env (copy .
 
 **Claim (fixed wording):** *Reduced cloud inference workload through local, zero-LLM context preprocessing — at equal task accuracy, with privacy redaction and injection isolation adding no cloud overhead.* We do not claim novelty over LLMLingua / SecurityLingua / Presidio; the contribution is the adaptive decision plus the ablation evidence.
 
+## Hosted demo (cached results)
+🔗 [Hosted demo (cached)](https://cvrnvi6orvdq8umqhbuxc6.streamlit.app/) · 📦 [Demo repo](https://github.com/manal-alsuwat/contextshield-demo)
+
+**Try it online:** https://cvrnvi6orvdq8umqhbuxc6.streamlit.app/
+
+The hosted app runs in **cached mode**: five recorded scenarios on two models, the full 22-task benchmark with charts, and the judge's run log. It does **not** run the layer live.
+
+**Why:** the local models (a 568 MB injection classifier, embeddings and NER) need about 2 GB of memory, which free hosting tiers do not provide, and the model file exceeds GitHub's size limit without LFS. The hosted copy therefore lives in a separate lightweight repository with the models removed: https://github.com/manal-alsuwat/contextshield-demo
+
+**For a real live run on your own documents** — the router, relevance selection, injection scan and PII redaction executing on your machine — clone this repository and run the three quickstart commands above. `streamlit run demo/app.py` then opens the full app with the **Try your own** tab. The submission video shows this live mode end to end.
+
+
 ## The problem
 Enterprise agents that read files, e-mails and tickets send the whole context to a cloud model on every call. Most of it is never used by the answer, some of it is personal data that should never leave the machine, and some of it is text planted by a third party to make the agent call a tool. All three are paid for in cloud tokens and latency.
 

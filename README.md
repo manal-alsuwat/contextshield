@@ -63,11 +63,11 @@ Decisions taken by measurement, not assumption (`bench/BENCH.md`, `models/*/quan
 
 | Exp | Pipeline | Accuracy | Mean input tokens | Token ↓ vs E0 | Cost / success (USD) | Evidence kept | e2e median | Local median | Acc floor | Lat floor | Verdict |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| E0 | full context, no layer | 20/22 (90.9 %) | 6 252 | — | 0.001044 | 100 % | 1 634 ms | 56 ms | — | — | baseline |
-| E1 | B only | 20/22 (90.9 %) | 2 330 | **62.7 %** | 0.000396 | 100 % | 2 022 ms | 443 ms | ✅ | ✅ | **accepted** |
-| E6 | naive truncation, same budget | 11/22 (50.0 %) | 2 346 | 62.5 % | 0.000725 | 59 % | 1 484 ms | 56 ms | ❌ | ✅ | savings not accepted |
-| E4 | B + A + C + D always on (scope `all`) | 21/22 (95.5 %) | 2 534 | 59.5 % | 0.000410 | 100 % | 6 118 ms | 4 086 ms | ✅ | ❌ | savings not accepted (latency) |
-| **E5** | router, B → A on outbound (adaptive) | 21/22 (95.5 %) | 2 533 | 59.5 % | 0.000409 | 100 % | 4 711 ms | 2 819 ms | ✅ | ❌ | savings not accepted (latency) |
+| E0<br>No shield (baseline) | full context, no layer | 20/22 (90.9 %) | 6 252 | — | 0.001044 | 100 % | 1 634 ms | 56 ms | — | — | baseline |
+| E1<br>Select only | B only | 20/22 (90.9 %) | 2 330 | **62.7 %** | 0.000396 | 100 % | 2 022 ms | 443 ms | ✅ | ✅ | **accepted** |
+| E6<br>Naive cut | naive truncation, same budget | 11/22 (50.0 %) | 2 346 | 62.5 % | 0.000725 | 59 % | 1 484 ms | 56 ms | ❌ | ✅ | savings not accepted |
+| E4<br>All stages, always on | B + A + C + D always on (scope `all`) | 21/22 (95.5 %) | 2 534 | 59.5 % | 0.000410 | 100 % | 6 118 ms | 4 086 ms | ✅ | ❌ | savings not accepted (latency) |
+| **E5**<br>**Adaptive router (ContextShield)** | router, B → A on outbound (adaptive) | 21/22 (95.5 %) | 2 533 | 59.5 % | 0.000409 | 100 % | 4 711 ms | 2 819 ms | ✅ | ❌ | savings not accepted (latency) |
 
 | Exp | Planted attacks | Removed by A (template / held-out) | Attacks reaching the model | `export_data` attempted → blocked | Attack succeeded | PII values in kept text → redacted | PII sent to cloud | PII false positives |
 |---|---|---|---|---|---|---|---|---|
@@ -101,7 +101,7 @@ The claim holds on the second model: token reduction within ±10 points (66.5 % 
 * **Privacy precision.** spaCy tags the synthetic company name "Nova Retail" as a person; left in (no allow-list tuned to the dataset) and reported as the PII false positives.
 
 ## Limitations
-30 synthetic tasks, one official model, one 4-core/8 GB machine — an ablation, not a benchmark. PII scope is the 6 listed types (no Arabic names/addresses); R3 triggers C for names only when a cue word or another PII type is present. A scans untrusted chunks only. The test set reuses the generator's attack templates, so template recall is optimistic; the 5 held-out attacks are the honest number. Latency P95 (~45 s) is dominated by ~44 s provider stalls on 40 of ~150 calls, equal across experiments; medians are the robust comparison. Groq's free tier could not send the long bucket (8 000 TPM) and ran out of its 200 k tokens/day during E1; the Groq run used `max_tokens` 1024 (reasoning tokens), gpt-4o-mini 256 — fixed within each run.
+This is an ablation, not a benchmark: 30 synthetic tasks, one main model, one 4-core / 8 GB laptop (CPU only, no GPU acceleration). On this machine the full adaptive layer (E5) is slower than our latency limit (end-to-end median 4.7 s vs 1.6 s without the layer; limit = 1.25×), most likely because the injection classifier runs on this limited CPU; selection + PII masking alone (E2) stays within the limit. Faster hardware may close the gap, but it has not been measured yet. PII coverage is the 6 listed types (Arabic names and addresses are not covered yet). Only untrusted sources are scanned for hidden instructions. The 5 held-out attacks are the honest detection measure, since the other test attacks share the generator's templates. Tail latency (P95) reflects occasional provider delays that affected all experiments equally, so we compare medians. The second-model check ran on a free tier with rate limits, so it covers fewer tasks.
 
 ## Shipped models and licenses
 The three local models are committed under `models/` so no download or Hugging Face token is ever needed (`HF_HUB_OFFLINE=1` is the default load path; `models/README.md`):

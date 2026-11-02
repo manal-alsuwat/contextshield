@@ -19,6 +19,10 @@ streamlit run demo/app.py     # cached mode works with no .env; add .env (copy .
 
 **Claim (fixed wording):** *Reduced cloud inference workload through local, zero-LLM context preprocessing — at equal task accuracy, with privacy redaction and injection isolation adding no cloud overhead.* We do not claim novelty over LLMLingua / SecurityLingua / Presidio; the contribution is the adaptive decision plus the ablation evidence.
 
+## ▶ ContextShield AI in 60 seconds
+
+https://github.com/user-attachments/assets/b2bf717a-40c5-419d-9e51-d4f0865a8418
+
 ## Hosted demo (cached results)
 
 **Try it online:** https://cvrnvi6orvdq8umqhbuxc6.streamlit.app/
